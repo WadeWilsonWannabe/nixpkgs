@@ -19,6 +19,20 @@ stdenv.mkDerivation rec {
     mv * "$out/share/cyberchef"
   '';
 
+  description = "The Cyber Swiss Army Knife for encryption, encoding, compression and data analysis.";
+  desktopItem = makeDesktopItem rec {
+    name = "cyberchef";
+    exec = brave $out/share/cyberchef/index.html;
+    icon = $out/share/cyberchef/images/cyberchef-128x128.png;
+    desktopName = "CyberChef";
+    comment = description;
+    categories = [ "Development" "Security" "System" ];
+  };
+
+    extraInstallCommands = ''
+    cp -r ${desktopItem}/share/applications $out/share
+  '';
+
   meta = with lib; {
     description = "The Cyber Swiss Army Knife for encryption, encoding, compression and data analysis.";
     homepage = "https://gchq.github.io/CyberChef";
